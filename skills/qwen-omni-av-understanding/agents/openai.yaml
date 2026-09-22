@@ -1,0 +1,6 @@
+interface:
+  display_name: "Qwen Omni 音视频理解"
+  short_description: "用 Qwen Omni 理解本地音频与视频并保存中文分析笔记"
+  default_prompt: "使用 $qwen-omni-av-understanding 分析这个音频或视频，并把结果保存为 Markdown。"
+policy:
+  allow_implicit_invocation: true

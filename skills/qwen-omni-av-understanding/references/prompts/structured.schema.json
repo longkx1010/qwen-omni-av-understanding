@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "Event": {
+      "additionalProperties": false,
+      "properties": {
+        "time_range": {
+          "$ref": "#/$defs/TimeRange",
+          "description": "事件起止时间"
+        },
+        "participants": {
+          "description": "参与的人物、动物或物体，按可观察特征命名且称呼一致",
+          "items": {
+            "type": "string"
+          },
+          "title": "参与者",
+          "type": "array"
+        },
+        "action": {
+          "description": "具体动作、互动与可观察结果",
+          "title": "动作",
+          "type": "string"
+        },
+        "sounds": {
+          "description": "事件中听到的声音；没有可辨声音时为空数组",
+          "items": {
+            "type": "string"
+          },
+          "title": "声音",
+          "type": "array"
+        }
+      },
+      "required": [
+        "time_range",
+        "participants",
+        "action",
+        "sounds"
+      ],
+      "title": "事件",
+      "type": "object"
+    },
+    "Scene": {
+      "additionalProperties": false,
+      "properties": {
+        "time_range": {
+          "$ref": "#/$defs/TimeRange",
+          "description": "场景起止时间"
+        },
+        "setting": {
+          "description": "环境、空间布局和主要视觉特征；纯音频仅写可听环境，不虚构画面",
+          "title": "环境",
+          "type": "string"
+        },
+        "events": {
+          "description": "按时间排序的事件；没有则为空数组",
+          "items": {
+            "$ref": "#/$defs/Event"
+          },
+          "title": "事件",
+          "type": "array"
+        }
+      },
+      "required": [
+        "time_range",
+        "setting",
+        "events"
+      ],
+      "title": "场景",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "start_seconds": {
+          "description": "相对于媒体开头的开始秒数",
+          "minimum": 0,
+          "title": "开始秒数",
+          "type": "number"
+        },
+        "end_seconds": {
+          "description": "结束秒数，不得早于开始时间",
+          "minimum": 0,
+          "title": "结束秒数",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start_seconds",
+        "end_seconds"
+      ],
+      "title": "时间范围",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "summary": {
+      "description": "媒体主要内容的中文概述",
+      "title": "概述",
+      "type": "string"
+    },
+    "scenes": {
+      "description": "按时间排序的场景；环境一致的连续片段归为一个场景",
+      "items": {
+        "$ref": "#/$defs/Scene"
+      },
+      "title": "场景",
+      "type": "array"
+    }
+  },
+  "required": [
+    "summary",
+    "scenes"
+  ],
+  "title": "描述结果",
+  "type": "object"
+}
